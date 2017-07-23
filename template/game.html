@@ -1,0 +1,101 @@
+<form ng-submit="vm.next()" >
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="well well-sm">
+                <section ng-if="vm.step == 0">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="alert alert-info">
+                                <h1 class="text-center">Select Mode</h1>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <label ng-repeat="(key, dif) in vm.game.difficult track by $index" class="radio-inline">
+                                    <input type="radio" ng-model="vm.game.mode" name="mode" value="{{ dif.speed }}" ng-click="vm.select($index)" required="required" /> <span ng-bind="key"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section ng-if="vm.step == 1">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" ng-model="vm.game.name" id="name" class="form-control"  required="required">
+                    </div>
+                </section>
+                <section ng-if="vm.step == 2">
+                    <div class="text-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary" ng-click="vm.start(true)" >Start Game</button>
+                            <button type="button" class="btn btn-primary" ng-click="vm.restart()" >Restart Game</button>
+                        </div>
+                    </div>
+                    <section class="partida">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="jumbotron text-center">
+                                    <b>Welcome <span ng-bind="vm.game.name"></span> !</b> <br/>
+                                    <b>
+                                        Difficult: <span ng-if="dif.speed == vm.game.mode" ng-bind="k + ' (' + (dif.speed/1000) + ' seconds' + ')'" ng-repeat="(k, dif) in vm.game.difficult"></span>
+                                    </b>
+                                </div>
+                                <div class="well well-sm">
+                                    <h1 class="text-center">{{ vm.game.counter + ' / ' + vm.game.matchSize }}</h1>
+                                    <h1 ng-bind="vm.game.display" class="text-center"></h1>
+                                    <div class="form-group">
+                                        <input id="value" type="text" ng-model="vm.game.value"  class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="game-result" ng-if="vm.game.score.points.length > 0">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                Results
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-condensed table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-md-2 text-center">#</th>
+                                        <th class="col-md-2 text-center">Expression</th>
+                                        <th class="col-md-2 text-center">Result</th>
+                                        <th class="col-md-2 text-center">Answered</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">
+                                            <h4 class="text-center">
+                                                <span ng-if="dif.speed == vm.game.mode" ng-bind="k + ' (' + (dif.speed/1000) + ' seconds' + ')'" ng-repeat="(k, dif) in vm.game.difficult"></span>
+                                            </h4>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="score in vm.game.score.points track by $index" class="text-center">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-bind="score.expression"></td>
+                                        <td ng-bind="score.result"></td>
+                                        <td ng-bind="score.value == ''? 'Empty' : score.value"></td>
+                                        <td ng-class="{'success' : score.isCorrect, 'danger' : !score.isCorrect }">
+                                            <h1>
+                                                <i ng-class="{'fa fa-check text-success' : score.isCorrect, 'fa fa-times text-danger' : !score.isCorrect }"></i>
+                                            </h1>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <div class="paginate" ng-if="vm.step < 2">
+                    <div class="btn-group">
+                        <button class="btn btn-default"  type="submit">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR" ng-app="app">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Simple Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+    <arithmetic-game></arithmetic-game>
+</div>
+<script>
+    angular.module('app', ['arithmetic.game']);
+</script>
+<script src="src/Calculate.js"></script>
+<script src="src/Randomizer.js"></script>
+<script src="src/arithmetic.game.js"></script>
+</body>
+</html>
